@@ -9,8 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack(alignment: .center, spacing: 20) {
-            ChartView()
+        VStack(spacing: 40) {
+            ChartView(paddingHorizontal: 0)
             
             ChartView(
                 width: 300,
@@ -88,7 +88,9 @@ struct XAxisLabelRender: UIViewRepresentable {
             let ctx = UIGraphicsGetCurrentContext()
             
             let textAttrs: [NSAttributedString.Key : Any] = [
-                .font: UIFont.preferredFont(forTextStyle: .headline),
+                .font: UIFont.preferredFont(
+                    forTextStyle: .headline
+                ),
                 .foregroundColor: UIColor.label,
                 .backgroundColor: UIColor.systemBackground
             ]
@@ -106,7 +108,10 @@ struct XAxisLabelRender: UIViewRepresentable {
                 context: nil
             )
             
-            label.text!.draw(in: labelRect, withAttributes: textAttrs)
+            label.text!.draw(
+                in: labelRect,
+                withAttributes: textAttrs
+            )
         }
     }
     
@@ -137,9 +142,17 @@ struct ChartView: View {
     }
     
     private var axisWidth: CGFloat = 100
+    private var axisSpacing: CGFloat = 10
     
     var body: some View {
-        HStack {
+        HStack(spacing: axisSpacing) {
+            XAxisLabelRender(
+                entries: entries,
+                axisWidth: axisWidth,
+                chartHeight: height
+            )
+            .frame(width: axisWidth - axisSpacing, height: height)
+            
             ZStack {
                 drawXAxis()
                     .stroke(.primary, lineWidth: 3)
@@ -150,8 +163,9 @@ struct ChartView: View {
                 drawLine()
                     .stroke(.green, lineWidth: 3)
             }
-            .frame(width: width - axisWidth, height: height)
+            .frame(width: width - axisWidth - axisSpacing, height: height)
         }
+        .frame(width: width, height: height)
     }
     
     func getSuitableXLabels(entries _: [ChartEntry]) -> [ChartEntry] {
@@ -196,7 +210,7 @@ struct ChartView: View {
             // Draw X-Axis
             path.addLine(
                 to: CGPoint(
-                    x: width - axisWidth/2,
+                    x: (width - axisSpacing - axisWidth),
                     y: height
                 )
             )
@@ -227,7 +241,9 @@ struct ChartView: View {
         let maxX = chartEntries.max(by: { $0.x < $1.x })?.x
         let maxY = chartEntries.max(by: { $0.y < $1.y })?.y
         
-        let scaleRatioWidth = (width - axisWidth / 2) / ((maxX ?? width))
+        let chartWidth: CGFloat = width - axisSpacing - axisWidth
+        
+        let scaleRatioWidth = chartWidth / ((maxX ?? width))
         let scaleRatioHeight = height / (maxY ?? height)
         
         let result = chartEntries.map {
