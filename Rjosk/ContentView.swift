@@ -10,24 +10,11 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
-            ChartView(
-                padding: UIEdgeInsets(
-                    top: 0,
-                    left: 10,
-                    bottom: 0,
-                    right: 10
-                )
-            )
+            ChartView()
             
             ChartView(
                 width: 300,
-                height: 100,
-                padding: UIEdgeInsets(
-                    top: 0,
-                    left: 0,
-                    bottom: 0,
-                    right: 0
-                )
+                height: 100
             )
         }
     }
@@ -36,6 +23,93 @@ struct ContentView: View {
 struct ChartEntry {
     let x: CGFloat
     let y: CGFloat
+}
+
+struct XAxisLabelRender: UIViewRepresentable {
+    
+    let entries: [ChartEntry]
+    
+    let axisWidth: CGFloat
+    let chartHeight: CGFloat
+    
+    init(
+        entries: [ChartEntry],
+        axisWidth: CGFloat = 0,
+        chartHeight: CGFloat
+    ) {
+        self.entries = entries
+        self.axisWidth = axisWidth
+        self.chartHeight = chartHeight
+    }
+    
+    func updateUIView(_ uiView: XAxisLabelView, context: Context) {
+        uiView.draw(uiView.bounds)
+    }
+    
+    func makeUIView(context: Context) -> XAxisLabelView {
+        XAxisLabelView(
+            entries: entries,
+            axisWidth: axisWidth,
+            chartHeight: chartHeight
+        )
+    }
+    
+    class XAxisLabelView: UIView {
+        
+        var entries: [ChartEntry]
+        
+        var axisWidth: CGFloat
+        var chartHeight: CGFloat
+        
+        init(
+            entries: [ChartEntry],
+            axisWidth: CGFloat = 0,
+            chartHeight: CGFloat
+        ) {
+            self.entries = entries
+            self.axisWidth = axisWidth
+            self.chartHeight = chartHeight
+            
+            super.init(
+                frame: CGRect(
+                    x: 0,
+                    y: 0,
+                    width: axisWidth,
+                    height: chartHeight
+                )
+            )
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        override func draw(_ rect: CGRect) {
+            let ctx = UIGraphicsGetCurrentContext()
+            
+            let textAttrs: [NSAttributedString.Key : Any] = [
+                .font: UIFont.preferredFont(forTextStyle: .headline),
+                .foregroundColor: UIColor.label,
+                .backgroundColor: UIColor.systemBackground
+            ]
+            
+            let label: UILabel = UILabel(frame: rect)
+            label.text = "31"
+            
+            // Calculate the bounding box and adjust for the center location
+            let labelRect = label.text!.boundingRect(
+                with: CGSize(
+                    width: axisWidth,
+                    height: 20
+                ),
+                attributes: textAttrs,
+                context: nil
+            )
+            
+            label.text!.draw(in: labelRect, withAttributes: textAttrs)
+        }
+    }
+    
 }
 
 struct ChartView: View {
@@ -51,31 +125,37 @@ struct ChartView: View {
     init(
         width: CGFloat = UIScreen.main.bounds.width,
         height: CGFloat = 300,
-        padding: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        paddingHorizontal: CGFloat = 10,
+        paddingVertical: CGFloat = 0
     ) {
-        self.width = width - (padding.left + padding.right)
-        self.height = height - (padding.top + padding.bottom)
+        self.width = width - paddingHorizontal
+        self.height = height - paddingVertical
     }
     
     private var screenWidth: CGFloat {
         UIScreen.main.bounds.width
     }
     
+    private var axisWidth: CGFloat = 100
+    
     var body: some View {
-        ZStack {
-            drawXAxis()
-                .stroke(.primary, lineWidth: 3)
-            
-            drawLeftYAxis()
-                .stroke(.primary, lineWidth: 3)
-            
-            drawRightYAxis()
-                .stroke(.primary, lineWidth: 3)
-            
-            drawLine()
-                .stroke(.green, lineWidth: 3)
+        HStack {
+            ZStack {
+                drawXAxis()
+                    .stroke(.primary, lineWidth: 3)
+                
+                drawLeftYAxis()
+                    .stroke(.primary, lineWidth: 3)
+                
+                drawLine()
+                    .stroke(.green, lineWidth: 3)
+            }
+            .frame(width: width - axisWidth, height: height)
         }
-        .frame(width: width, height: height)
+    }
+    
+    func getSuitableXLabels(entries _: [ChartEntry]) -> [ChartEntry] {
+        []
     }
     
     func drawLine() -> Path {
@@ -103,19 +183,6 @@ struct ChartView: View {
         }
     }
     
-    func drawBackground() -> Path {
-        Path { path in
-            path.addRect(
-                CGRect(
-                    x: 0,
-                    y: 0,
-                    width: Int(width),
-                    height: Int(height)
-                )
-            )
-        }
-    }
-    
     func drawXAxis() -> Path {
         Path { path in
             // Move to the bottom leading corner
@@ -129,7 +196,7 @@ struct ChartView: View {
             // Draw X-Axis
             path.addLine(
                 to: CGPoint(
-                    x: width,
+                    x: width - axisWidth/2,
                     y: height
                 )
             )
@@ -156,35 +223,15 @@ struct ChartView: View {
         }
     }
     
-    func drawRightYAxis() -> Path {
-        Path { path in
-            // Move to the bottom leading corner
-            path.move(
-                to: CGPoint(
-                    x: width,
-                    y: height
-                )
-            )
-            
-            // Draw Y-Axis
-            path.addLine(
-                to: CGPoint(
-                    x: width,
-                    y: 0
-                )
-            )
-        }
-    }
-    
     func applyScaling(chartEntries: [ChartEntry]) -> [ChartEntry] {
         let maxX = chartEntries.max(by: { $0.x < $1.x })?.x
         let maxY = chartEntries.max(by: { $0.y < $1.y })?.y
         
-        let scaleRatioWidth = width / (maxX ?? width)
+        let scaleRatioWidth = (width - axisWidth / 2) / ((maxX ?? width))
         let scaleRatioHeight = height / (maxY ?? height)
         
         let result = chartEntries.map {
-            let x = $0.x * scaleRatioWidth
+            let x = ($0.x * scaleRatioWidth)
             let y = height - $0.y * scaleRatioHeight
             
             return ChartEntry(
