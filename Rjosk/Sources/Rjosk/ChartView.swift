@@ -39,9 +39,7 @@ public struct ChartView: View {
     }
     
     @State var axisWidth: CGFloat = 0
-    @State var axisHeight: CGFloat = 0
-    
-    var axisSpacing: CGFloat = 10
+    var axisSpacing: CGFloat = 4
     
     public var body: some View {
         HStack(spacing: 0) {
