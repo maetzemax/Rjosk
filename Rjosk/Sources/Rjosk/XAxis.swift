@@ -49,8 +49,8 @@ struct XAxis: ChartAxis {
                 GeometryReader { reader in
                     Color(.systemBackground)
                         .onAppear {
-                            if chart.axisWidth < reader.size.width {
-                                chart.axisWidth = reader.size.width
+                            if chart.axisHeight < reader.size.height {
+                                chart.axisHeight = reader.size.height
                             }
                         }
                 }
