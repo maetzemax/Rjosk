@@ -1,26 +1,14 @@
-// The Swift Programming Language
-// https://docs.swift.org/swift-book
-
 import SwiftUI
-
-protocol ChartAxis {
-    associatedtype SwiftUIView: View
-    func drawLabels() -> SwiftUIView
-    
-    func drawAxis() -> Path
-    
-    var chart: ChartView { get }
-}
 
 public struct ChartView: View {
     
-    var entries: [ChartEntry] = .example
+    var entries: [ChartEntry] = .exampleSinus
     
     // Width of chart frame
     var width: CGFloat
     
     var chartWidth: CGFloat {
-        width - axisSpacing - axisWidth - 20
+        width - axisSpacing - axisWidth
     }
     
     // Height of chart frame
@@ -31,10 +19,13 @@ public struct ChartView: View {
     }
     
     public init(
+        entries: [ChartEntry] = .exampleSinus,
         width: CGFloat = UIScreen.main.bounds.width,
-        height: CGFloat = 300
+        height: CGFloat = 300,
+        paddingHorizontal: CGFloat = 20
     ) {
-        self.width = width
+        self.entries = entries
+        self.width = width - paddingHorizontal
         self.height = height
     }
     
@@ -78,14 +69,6 @@ public struct ChartView: View {
             }
         }
         .frame(width: width, height: height)
-    }
-    
-    struct ChartLabel<Content: View>: View {
-        let content: () -> Content
-        
-        var body: some View {
-            content()
-        }
     }
     
     func drawLine() -> Path {

@@ -41,7 +41,7 @@ struct XAxis: ChartAxis {
         let scaleRatioWidth = chart.chartWidth / (maxX - minX)
         
         let posX = (x - minX) * scaleRatioWidth
-//        let posY = chart.chartHeight + chart.axisHeight
+        let posY = chart.axisHeight/2
             
         return Text(numberFormatter.string(from: x as NSNumber) ?? "")
             .font(.callout)
@@ -56,7 +56,7 @@ struct XAxis: ChartAxis {
                         }
                 }
             }
-            .position(x: posX, y: chart.axisHeight/2)
+            .position(x: posX, y: posY)
     }
     
     private func getSuitableLabels() -> [CGFloat] {

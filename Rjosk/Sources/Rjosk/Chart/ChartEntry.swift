@@ -1,18 +1,21 @@
 import Foundation
 
-struct ChartEntry: Equatable {
+public struct ChartEntry: Equatable {
     let x: CGFloat
     let y: CGFloat
 }
 
 extension Array<ChartEntry> {
-    static var example: [ChartEntry] {
+    public static var exampleSinus: [ChartEntry] {
+        let amplitude: Double = 10
+        let frequency: Double = 0.10
+        
         var entries: [ChartEntry] = []
-        for index in 3..<10 {
+        for index in 0..<1000 {
             entries.append(
                 ChartEntry(
                     x: CGFloat(index),
-                    y: .random(in: 2000..<5001)
+                    y: amplitude * sin(frequency * Double(index))
                 )
             )
         }
