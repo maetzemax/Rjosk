@@ -9,16 +9,16 @@ struct XAxis: ChartAxis {
             // Move to the bottom leading corner
             path.move(
                 to: CGPoint(
-                    x: 0 + chart.axisSpacing,
-                    y: chart.height
+                    x: 0,
+                    y: chart.chartHeight
                 )
             )
             
             // Draw X-Axis
             path.addLine(
                 to: CGPoint(
-                    x: (chart.width - chart.axisSpacing - chart.axisWidth),
-                    y: chart.height
+                    x: chart.chartWidth,
+                    y: chart.chartHeight
                 )
             )
         }
@@ -26,35 +26,56 @@ struct XAxis: ChartAxis {
     
     func drawLabels() -> some View {
         return ZStack {
-            let scaledEntries = chart.applyScaling(chartEntries: chart.entries)
-            ForEach(Array(chart.entries.enumerated()), id: \.offset) { entry in
-                if let maxEntry = chart.entries.max(by: { $0.x < $1.x }), maxEntry == entry.element {
-                    getLabel(posX: scaledEntries[entry.offset].x, valueX: maxEntry.x)
-                }
-                
-                if let minEntry = chart.entries.min(by: { $0.x < $1.x }), minEntry == entry.element {
-                    getLabel(posX: scaledEntries[entry.offset].x, valueX: minEntry.x)
-                }
+            ForEach(getSuitableLabels(), id: \.hashValue) { entry in
+                getLabel(x: entry)
             }
         }
     }
     
-    private func getLabel(posX: CGFloat, valueX: CGFloat) -> some View {
+    private func getLabel(x: CGFloat) -> some View {
         let numberFormatter = NumberFormatter()
         
-        return Text(numberFormatter.string(from: valueX as NSNumber) ?? "")
+        let minX = chart.entries.min(by: { $0.x < $1.x })?.x ?? 0
+        let maxX = chart.entries.max(by: { $0.x < $1.x })?.x ?? chart.width
+        
+        let scaleRatioWidth = chart.chartWidth / (maxX - minX)
+        
+        let posX = (x - minX) * scaleRatioWidth
+//        let posY = chart.chartHeight + chart.axisHeight
+            
+        return Text(numberFormatter.string(from: x as NSNumber) ?? "")
             .font(.callout)
             .fixedSize(horizontal: true, vertical: false)
             .background {
                 GeometryReader { reader in
                     Color(.systemBackground)
                         .onAppear {
-                            if chart.axisWidth < reader.size.width {
-                                chart.axisWidth = reader.size.width
+                            if chart.axisHeight < reader.size.height {
+                                chart.axisHeight = reader.size.height
                             }
                         }
                 }
             }
-            .position(x: posX, y: chart.height + 10)
+            .position(x: posX, y: chart.axisHeight/2)
+    }
+    
+    private func getSuitableLabels() -> [CGFloat] {
+        var labels: [CGFloat] = []
+        
+        let minX = chart.entries.min(by: { $0.x < $1.x})?.x
+        let maxX = chart.entries.max(by: { $0.x < $1.x})?.x
+        
+        guard let minX, let maxX else {
+            return labels
+        }
+        
+        labels.append(minX)
+        labels.append(maxX)
+        
+        let halfX = chart.entries[(chart.entries.count - 1) / 2].x
+        
+        labels.append(halfX)
+        
+        return labels
     }
 }

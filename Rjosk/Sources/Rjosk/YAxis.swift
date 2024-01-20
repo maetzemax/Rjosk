@@ -8,7 +8,7 @@ struct YAxis: ChartAxis {
         Path { path in
             path.move(
                 to: CGPoint(
-                    x: 0 + chart.axisSpacing,
+                    x: 0,
                     y: 0
                 )
             )
@@ -16,8 +16,8 @@ struct YAxis: ChartAxis {
             // Draw Y-Axis
             path.addLine(
                 to: CGPoint(
-                    x: 0 + chart.axisSpacing,
-                    y: chart.height
+                    x: 0,
+                    y: chart.chartHeight
                 )
             )
         }
@@ -25,23 +25,24 @@ struct YAxis: ChartAxis {
     
     func drawLabels() -> some View {
         return ZStack {
-            let scaledEntries = chart.applyScaling(chartEntries: chart.entries)
-            ForEach(Array(chart.entries.enumerated()), id: \.offset) { entry in
-                if let maxEntry = chart.entries.max(by: { $0.y < $1.y }), maxEntry == entry.element {
-                    getLabel(posY: scaledEntries[entry.offset].y, valueY: maxEntry.y)
-                }
-                
-                if let minEntry = chart.entries.min(by: { $0.y < $1.y }), minEntry == entry.element {
-                    getLabel(posY: scaledEntries[entry.offset].y, valueY: minEntry.y)
-                }
+            ForEach(getSuitableLabels(), id: \.hashValue) { entry in
+                getLabel(y: entry)
             }
         }
     }
     
-    private func getLabel(posY: CGFloat, valueY: CGFloat) -> some View {
+    private func getLabel(y: CGFloat) -> some View {
         let numberFormatter = NumberFormatter()
         
-        return Text(numberFormatter.string(from: valueY as NSNumber) ?? "")
+        let minY = chart.entries.min(by: { $0.y < $1.y })?.y ?? 0
+        let maxY = chart.entries.max(by: { $0.y < $1.y })?.y ?? chart.height
+        
+        let scaleRatioHeight = chart.chartHeight / (maxY - minY)
+        
+        let posX = chart.axisWidth / 2
+        let posY = (y - minY) * scaleRatioHeight
+        
+        return Text(numberFormatter.string(from: y as NSNumber) ?? "")
             .font(.callout)
             .fixedSize(horizontal: true, vertical: false)
             .background {
@@ -54,6 +55,26 @@ struct YAxis: ChartAxis {
                         }
                 }
             }
-            .position(x: chart.axisWidth/2, y: chart.height - posY)
+            .position(x: posX, y: chart.chartHeight - posY)
+    }
+    
+    private func getSuitableLabels() -> [CGFloat] {
+        var labels: [CGFloat] = []
+        
+        let minY = chart.entries.min(by: { $0.y < $1.y})?.y
+        let maxY = chart.entries.max(by: { $0.y < $1.y})?.y
+        
+        guard let minY, let maxY else {
+            return labels
+        }
+        
+        labels.append(minY)
+        labels.append(maxY)
+        
+        let halfY = (minY + maxY) / 2
+        
+        labels.append(halfY)
+        
+        return labels
     }
 }

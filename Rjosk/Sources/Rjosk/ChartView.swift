@@ -19,14 +19,22 @@ public struct ChartView: View {
     // Width of chart frame
     var width: CGFloat
     
+    var chartWidth: CGFloat {
+        width - axisSpacing - axisWidth - 20
+    }
+    
     // Height of chart frame
     var height: CGFloat
+    
+    var chartHeight: CGFloat {
+        height - axisSpacing - axisHeight
+    }
     
     public init(
         width: CGFloat = UIScreen.main.bounds.width,
         height: CGFloat = 300
     ) {
-        self.width = width - 20
+        self.width = width
         self.height = height
     }
     
@@ -39,26 +47,35 @@ public struct ChartView: View {
     }
     
     @State var axisWidth: CGFloat = 0
-    var axisSpacing: CGFloat = 4
+    @State var axisHeight: CGFloat = 0
+    
+    var axisSpacing: CGFloat = 10
     
     public var body: some View {
-        HStack(spacing: 0) {
-            
-            yAxis.drawLabels()
-            
+        HStack(alignment: .top, spacing: axisSpacing) {
             ZStack {
-                xAxis.drawAxis()
-                    .stroke(.primary, lineWidth: 2)
-                
-                xAxis.drawLabels()
-                
-                yAxis.drawAxis()
-                    .stroke(.primary, lineWidth: 2)
-                
-                drawLine()
-                    .stroke(.green, lineWidth: 1.5)
+                yAxis.drawLabels()
             }
-            .frame(width: width - axisWidth - axisSpacing, height: height)
+            .frame(width: axisWidth, height: chartHeight)
+            
+            VStack(spacing: axisSpacing) {
+                ZStack {
+                    xAxis.drawAxis()
+                        .stroke(.primary, lineWidth: 2)
+                    
+                    yAxis.drawAxis()
+                        .stroke(.primary, lineWidth: 2)
+                    
+                    drawLine()
+                        .stroke(.green, lineWidth: 1.5)
+                }
+                .frame(width: chartWidth, height: chartHeight)
+                
+                ZStack {
+                    xAxis.drawLabels()
+                }
+                .frame(width: chartWidth, height: axisHeight)
+            }
         }
         .frame(width: width, height: height)
     }
@@ -74,20 +91,22 @@ public struct ChartView: View {
     func drawLine() -> Path {
         Path { path in
             
-            let scaledEntries = applyScaling(chartEntries: entries)
+            var scaledEntries = applyScaling(chartEntries: entries)
             
             path.move(
                 to: CGPoint(
                     x: scaledEntries[0].x,
-                    y: height - scaledEntries[0].y
+                    y: chartHeight - scaledEntries[0].y
                 )
             )
+            
+            scaledEntries.removeFirst()
             
             for entry in scaledEntries {
                 path.addLine(
                     to: CGPoint(
                         x: entry.x,
-                        y: height - entry.y
+                        y: chartHeight - entry.y
                     )
                 )
             }
@@ -101,15 +120,12 @@ public struct ChartView: View {
         let maxX = chartEntries.max(by: { $0.x < $1.x })?.x ?? width
         let maxY = chartEntries.max(by: { $0.y < $1.y })?.y ?? height
         
-        let chartWidth: CGFloat = width - axisSpacing - axisWidth
-        let chartHeight: CGFloat = height
-        
         let scaleRatioWidth = chartWidth / (maxX - minX)
         let scaleRatioHeight = chartHeight / (maxY - minY)
         
         let result = chartEntries.map {
-            let x = ($0.x - minX) * scaleRatioWidth + axisSpacing
-            let y = ($0.y - minY) * scaleRatioHeight + axisSpacing
+            let x = ($0.x - minX) * scaleRatioWidth
+            let y = ($0.y - minY) * scaleRatioHeight
             
             return ChartEntry(x: x, y: y)
         }

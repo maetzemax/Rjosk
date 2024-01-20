@@ -8,7 +8,7 @@ struct ChartEntry: Equatable {
 extension Array<ChartEntry> {
     static var example: [ChartEntry] {
         var entries: [ChartEntry] = []
-        for index in 2..<10 {
+        for index in 3..<10 {
             entries.append(
                 ChartEntry(
                     x: CGFloat(index),
