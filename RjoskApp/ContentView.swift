@@ -13,13 +13,11 @@ struct ContentView: View {
     )
     
     var body: some View {
-        VStack {
-            ChartView(
-                chartConfig: ChartConfiguration(
-                    chartStyling: chartStyling
-                )
+        ChartView(
+            chartConfig: ChartConfiguration(
+                chartStyling: chartStyling
             )
-        }
+        )
     }
 }
 

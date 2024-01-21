@@ -27,36 +27,62 @@ struct XAxis: ChartAxis {
     func drawLabels() -> some View {
         return ZStack {
             ForEach(getSuitableLabels(), id: \.hashValue) { entry in
-                getLabel(x: entry)
+               XAxisLabel(x: entry, chart: chart)
             }
         }
     }
     
-    private func getLabel(x: CGFloat) -> some View {
+    struct XAxisLabel: View {
+        
+        @State var labelWidth: CGFloat = 0
+        
+        let x: CGFloat
+        let chart: ChartView
+        
+        init(x: CGFloat, chart: ChartView) {
+            self.x = x
+            self.chart = chart
+        }
+        
         let numberFormatter = NumberFormatter()
         
-        let minX = chart.entries.min(by: { $0.x < $1.x })?.x ?? 0
-        let maxX = chart.entries.max(by: { $0.x < $1.x })?.x ?? chart.width
+        var minX: CGFloat {
+            chart.entries.min(by: { $0.x < $1.x})?.x ?? 0
+        }
         
-        let scaleRatioWidth = chart.chartWidth / (maxX - minX)
+        var maxX: CGFloat {
+            chart.entries.max(by: { $0.x < $1.x })?.x ?? chart.width
+        }
         
-        let posX = (x - minX) * scaleRatioWidth
-        let posY = chart.axisHeight/2
-            
-        return Text(numberFormatter.string(from: x as NSNumber) ?? "")
-            .font(.callout)
-            .fixedSize(horizontal: true, vertical: false)
-            .background {
-                GeometryReader { reader in
-                    Color.clear
-                        .onAppear {
-                            if chart.axisHeight < reader.size.height {
-                                chart.axisHeight = reader.size.height
+        var scaleRatioWidth: CGFloat {
+            chart.chartWidth / (maxX - minX)
+        }
+        
+        var posX: CGFloat {
+            (x - minX) * scaleRatioWidth
+        }
+        
+        var posY: CGFloat {
+            chart.axisHeight/2
+        }
+        
+        var body: some View {
+            Text(numberFormatter.string(from: x as NSNumber) ?? "")
+                .font(.callout)
+                .fixedSize(horizontal: true, vertical: false)
+                .background {
+                    GeometryReader { reader in
+                        Color.clear
+                            .onAppear {
+                                if chart.axisHeight < reader.size.height {
+                                    chart.axisHeight = reader.size.height
+                                }
+                                labelWidth = reader.size.width
                             }
-                        }
+                    }
                 }
-            }
-            .position(x: posX, y: posY)
+                .position(x: x == maxX ? posX - labelWidth/2 : posX, y: posY)
+        }
     }
     
     private func getSuitableLabels() -> [CGFloat] {
