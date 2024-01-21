@@ -4,12 +4,12 @@
 import PackageDescription
 
 let package = Package(
-    name: "Rjosk",
+    name: "RjoskCharts",
     platforms: [.iOS(.v17)],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "Rjosk",
+            name: "RjoskChart",
             targets: ["Rjosk"]),
     ],
     targets: [
