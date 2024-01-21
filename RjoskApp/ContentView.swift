@@ -5,22 +5,20 @@ struct ContentView: View {
     
     let chartStyling: ChartStyling = ChartStyling(
         lineWidth: 2,
-        lineColor: .yellow,
+        lineColor: .green,
         labelColor: .white,
-        chartBackground: .indigo
+        chartBackground: .brown,
+        axisColor: .white,
+        axisLineWidth: 1
     )
     
     var body: some View {
         VStack {
             ChartView(
                 chartConfig: ChartConfiguration(
-                    chartStyling: chartStyling,
-                    horizontalPadding: 40,
-                    axisSpacing: 20
+                    chartStyling: chartStyling
                 )
             )
-                
-            ChartView()
         }
     }
 }
