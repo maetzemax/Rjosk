@@ -7,12 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5073103D2B5B0628006DCD65 /* Rjosk in Frameworks */ = {isa = PBXBuildFile; productRef = 5073103C2B5B0628006DCD65 /* Rjosk */; };
 		508505C42B587D5F004E0F82 /* RjoskApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508505C32B587D5F004E0F82 /* RjoskApp.swift */; };
 		508505C62B587D5F004E0F82 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508505C52B587D5F004E0F82 /* ContentView.swift */; };
 		508505C82B587D61004E0F82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 508505C72B587D61004E0F82 /* Assets.xcassets */; };
 		508505CB2B587D61004E0F82 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 508505CA2B587D61004E0F82 /* Preview Assets.xcassets */; };
-		50D790A42B5CB81200540772 /* RjoskChart in Frameworks */ = {isa = PBXBuildFile; productRef = 50D790A32B5CB81200540772 /* RjoskChart */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,8 +26,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5073103D2B5B0628006DCD65 /* Rjosk in Frameworks */,
-				50D790A42B5CB81200540772 /* RjoskChart in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,8 +92,6 @@
 			);
 			name = RjoskAppApp;
 			packageProductDependencies = (
-				5073103C2B5B0628006DCD65 /* Rjosk */,
-				50D790A32B5CB81200540772 /* RjoskChart */,
 			);
 			productName = Rjosk;
 			productReference = 508505C02B587D5F004E0F82 /* RjoskAppApp.app */;
@@ -370,17 +364,6 @@
 			relativePath = "";
 		};
 /* End XCLocalSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		5073103C2B5B0628006DCD65 /* Rjosk */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Rjosk;
-		};
-		50D790A32B5CB81200540772 /* RjoskChart */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = RjoskChart;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 508505B82B587D5F004E0F82 /* Project object */;
 }
