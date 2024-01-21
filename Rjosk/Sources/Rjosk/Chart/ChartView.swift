@@ -22,7 +22,7 @@ public struct ChartView: View {
     
     public init(
         entries: [ChartEntry] = .exampleSinus,
-        chartConfig: ChartConfiguration = .default
+        chartConfig: ChartConfiguration = ChartConfiguration()
     ) {
         self.entries = entries
         self.width = chartConfig.width - chartConfig.horizontalPadding
@@ -42,7 +42,7 @@ public struct ChartView: View {
     @State var axisWidth: CGFloat = 0
     @State var axisHeight: CGFloat = 0
     
-    var axisSpacing: CGFloat = 10
+    var axisSpacing: CGFloat
     
     public var body: some View {
         HStack(alignment: .top, spacing: axisSpacing) {
@@ -55,10 +55,10 @@ public struct ChartView: View {
             VStack(spacing: axisSpacing) {
                 ZStack {
                     xAxis.drawAxis()
-                        .stroke(.primary, lineWidth: 2)
+                        .stroke(chartStyling.axisColor, lineWidth: chartStyling.axisLineWidth)
                     
                     yAxis.drawAxis()
-                        .stroke(.primary, lineWidth: 2)
+                        .stroke(chartStyling.axisColor, lineWidth: chartStyling.axisLineWidth)
                     
                     drawLine()
                         .stroke(chartStyling.lineColor, lineWidth: chartStyling.lineWidth)
@@ -73,6 +73,7 @@ public struct ChartView: View {
             }
         }
         .frame(width: width, height: height)
+        .background(chartStyling.chartBackground)
     }
     
     func drawLine() -> Path {

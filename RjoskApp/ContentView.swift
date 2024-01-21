@@ -5,8 +5,9 @@ struct ContentView: View {
     
     let chartStyling: ChartStyling = ChartStyling(
         lineWidth: 2,
-        lineColor: .pink,
-        labelColor: .gray
+        lineColor: .yellow,
+        labelColor: .white,
+        chartBackground: .indigo
     )
     
     var body: some View {
