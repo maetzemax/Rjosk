@@ -15,12 +15,13 @@ struct ContentView: View {
     var body: some View {
         ChartView(
             chartConfig: ChartConfiguration(
-                chartStyling: chartStyling
+                chartStyling: chartStyling,
+                horizontalPadding: 100
             )
         )
     }
 }
 
-#Preview(traits: .sizeThatFitsLayout) {
+#Preview {
     ContentView()
 }

@@ -79,7 +79,7 @@ struct YAxis: ChartAxis {
                             }
                     }
                 }
-                .position(x: posX, y: chart.chartHeight - (posY == maxY ? posY - labelHeight/2 : posY))
+                .position(x: posX, y: chart.chartHeight - (y == maxY ? posY - labelHeight/2 : posY))
         }
     }
     
