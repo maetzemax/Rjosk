@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5073103D2B5B0628006DCD65 /* Rjosk in Frameworks */ = {isa = PBXBuildFile; productRef = 5073103C2B5B0628006DCD65 /* Rjosk */; };
 		508505C42B587D5F004E0F82 /* RjoskApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508505C32B587D5F004E0F82 /* RjoskApp.swift */; };
 		508505C62B587D5F004E0F82 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508505C52B587D5F004E0F82 /* ContentView.swift */; };
 		508505C82B587D61004E0F82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 508505C72B587D61004E0F82 /* Assets.xcassets */; };
@@ -15,8 +14,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5073103B2B5B05E3006DCD65 /* Rjosk */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Rjosk; sourceTree = "<group>"; };
-		508505C02B587D5F004E0F82 /* RjoskAppApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RjoskAppApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		508505C02B587D5F004E0F82 /* Rjosk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rjosk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		508505C32B587D5F004E0F82 /* RjoskApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RjoskApp.swift; sourceTree = "<group>"; };
 		508505C52B587D5F004E0F82 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		508505C72B587D61004E0F82 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -28,39 +26,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5073103D2B5B0628006DCD65 /* Rjosk in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		501496EF2B5B05B7006FA0D2 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				5073103B2B5B05E3006DCD65 /* Rjosk */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		508505B72B587D5F004E0F82 = {
 			isa = PBXGroup;
 			children = (
-				508505C22B587D5F004E0F82 /* RjoskApp */,
+				508505C22B587D5F004E0F82 /* Rjosk */,
 				508505C12B587D5F004E0F82 /* Products */,
-				501496EF2B5B05B7006FA0D2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		508505C12B587D5F004E0F82 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				508505C02B587D5F004E0F82 /* RjoskAppApp.app */,
+				508505C02B587D5F004E0F82 /* Rjosk.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		508505C22B587D5F004E0F82 /* RjoskApp */ = {
+		508505C22B587D5F004E0F82 /* Rjosk */ = {
 			isa = PBXGroup;
 			children = (
 				508505C32B587D5F004E0F82 /* RjoskApp.swift */,
@@ -68,7 +56,7 @@
 				508505C72B587D61004E0F82 /* Assets.xcassets */,
 				508505C92B587D61004E0F82 /* Preview Content */,
 			);
-			path = RjoskApp;
+			path = Rjosk;
 			sourceTree = "<group>";
 		};
 		508505C92B587D61004E0F82 /* Preview Content */ = {
@@ -82,9 +70,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		508505BF2B587D5F004E0F82 /* RjoskAppApp */ = {
+		508505BF2B587D5F004E0F82 /* Rjosk */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 508505CE2B587D61004E0F82 /* Build configuration list for PBXNativeTarget "RjoskAppApp" */;
+			buildConfigurationList = 508505CE2B587D61004E0F82 /* Build configuration list for PBXNativeTarget "Rjosk" */;
 			buildPhases = (
 				508505BC2B587D5F004E0F82 /* Sources */,
 				508505BD2B587D5F004E0F82 /* Frameworks */,
@@ -94,12 +82,9 @@
 			);
 			dependencies = (
 			);
-			name = RjoskAppApp;
-			packageProductDependencies = (
-				5073103C2B5B0628006DCD65 /* Rjosk */,
-			);
+			name = Rjosk;
 			productName = Rjosk;
-			productReference = 508505C02B587D5F004E0F82 /* RjoskAppApp.app */;
+			productReference = 508505C02B587D5F004E0F82 /* Rjosk.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -117,7 +102,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 508505BB2B587D5F004E0F82 /* Build configuration list for PBXProject "RjoskApp" */;
+			buildConfigurationList = 508505BB2B587D5F004E0F82 /* Build configuration list for PBXProject "Rjosk" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -126,13 +111,11 @@
 				Base,
 			);
 			mainGroup = 508505B72B587D5F004E0F82;
-			packageReferences = (
-			);
 			productRefGroup = 508505C12B587D5F004E0F82 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				508505BF2B587D5F004E0F82 /* RjoskAppApp */,
+				508505BF2B587D5F004E0F82 /* Rjosk */,
 			);
 		};
 /* End PBXProject section */
@@ -288,7 +271,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"RjoskApp/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Rjosk/Preview Content\"";
 				DEVELOPMENT_TEAM = KLXF66UW7Z;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -302,7 +285,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.maetzedev.RjoskApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maetzedev.Rjosk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -317,7 +300,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"RjoskApp/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Rjosk/Preview Content\"";
 				DEVELOPMENT_TEAM = KLXF66UW7Z;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -331,7 +314,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.maetzedev.RjoskApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maetzedev.Rjosk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -342,7 +325,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		508505BB2B587D5F004E0F82 /* Build configuration list for PBXProject "RjoskApp" */ = {
+		508505BB2B587D5F004E0F82 /* Build configuration list for PBXProject "Rjosk" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				508505CC2B587D61004E0F82 /* Debug */,
@@ -351,7 +334,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		508505CE2B587D61004E0F82 /* Build configuration list for PBXNativeTarget "RjoskAppApp" */ = {
+		508505CE2B587D61004E0F82 /* Build configuration list for PBXNativeTarget "Rjosk" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				508505CF2B587D61004E0F82 /* Debug */,
@@ -361,13 +344,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		5073103C2B5B0628006DCD65 /* Rjosk */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Rjosk;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 508505B82B587D5F004E0F82 /* Project object */;
 }
