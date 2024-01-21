@@ -24,10 +24,39 @@ struct XAxis: ChartAxis {
         }
     }
     
+    func drawTicks(x: CGFloat) -> some View {
+        
+        var minX: CGFloat {
+            chart.entries.min(by: { $0.x < $1.x})?.x ?? 0
+        }
+        
+        var maxX: CGFloat {
+            chart.entries.max(by: { $0.x < $1.x })?.x ?? chart.width
+        }
+        
+        var scaleRatioWidth: CGFloat {
+            chart.chartWidth / (maxX - minX)
+        }
+        
+        var posX: CGFloat {
+            (x - minX) * scaleRatioWidth
+        }
+        
+        var posY: CGFloat {
+            -chart.axisHeight
+        }
+        
+        return Rectangle()
+            .foregroundStyle(chart.chartStyling.axisTickColor)
+            .frame(width: chart.chartStyling.axisTickLineWidth, height: 10)
+            .position(x: posX, y: posY)
+    }
+    
     func drawLabels() -> some View {
         return ZStack {
             ForEach(getSuitableLabels(), id: \.hashValue) { entry in
-               XAxisLabel(x: entry, chart: chart)
+                XAxisLabel(x: entry, chart: chart)
+                drawTicks(x: entry)
             }
         }
     }

@@ -23,10 +23,38 @@ struct YAxis: ChartAxis {
         }
     }
     
+    func drawTicks(y: CGFloat) -> some View {        
+        var minY: CGFloat {
+            chart.entries.min(by: { $0.y < $1.y })?.y ?? 0
+        }
+        
+        var maxY: CGFloat {
+            chart.entries.max(by: { $0.y < $1.y })?.y ?? chart.height
+        }
+        
+        var scaleRatioHeight: CGFloat {
+            chart.chartHeight / (maxY - minY)
+        }
+        
+        var posX: CGFloat {
+            chart.width - chart.chartWidth
+        }
+        
+        var posY: CGFloat {
+            (y - minY) * scaleRatioHeight
+        }
+        
+        return Rectangle()
+            .foregroundStyle(chart.chartStyling.axisTickColor)
+            .frame(width: 10, height: chart.chartStyling.axisTickLineWidth)
+            .position(x: posX, y: chart.chartHeight - posY)
+    }
+    
     func drawLabels() -> some View {
         return ZStack {
             ForEach(getSuitableLabels(), id: \.hashValue) { entry in
                 YAxisLabel(y: entry, chart: chart)
+                drawTicks(y: entry)
             }
         }
     }
@@ -60,6 +88,7 @@ struct YAxis: ChartAxis {
         var posX: CGFloat {
             chart.axisWidth / 2
         }
+        
         var posY: CGFloat {
             (y - minY) * scaleRatioHeight
         }
