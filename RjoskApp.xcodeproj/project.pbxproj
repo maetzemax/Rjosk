@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,10 +12,10 @@
 		508505C62B587D5F004E0F82 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508505C52B587D5F004E0F82 /* ContentView.swift */; };
 		508505C82B587D61004E0F82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 508505C72B587D61004E0F82 /* Assets.xcassets */; };
 		508505CB2B587D61004E0F82 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 508505CA2B587D61004E0F82 /* Preview Assets.xcassets */; };
+		50D790A42B5CB81200540772 /* RjoskChart in Frameworks */ = {isa = PBXBuildFile; productRef = 50D790A32B5CB81200540772 /* RjoskChart */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5073103B2B5B05E3006DCD65 /* Rjosk */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Rjosk; sourceTree = "<group>"; };
 		508505C02B587D5F004E0F82 /* RjoskAppApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RjoskAppApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		508505C32B587D5F004E0F82 /* RjoskApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RjoskApp.swift; sourceTree = "<group>"; };
 		508505C52B587D5F004E0F82 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -29,6 +29,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5073103D2B5B0628006DCD65 /* Rjosk in Frameworks */,
+				50D790A42B5CB81200540772 /* RjoskChart in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38,7 +39,6 @@
 		501496EF2B5B05B7006FA0D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5073103B2B5B05E3006DCD65 /* Rjosk */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -97,6 +97,7 @@
 			name = RjoskAppApp;
 			packageProductDependencies = (
 				5073103C2B5B0628006DCD65 /* Rjosk */,
+				50D790A32B5CB81200540772 /* RjoskChart */,
 			);
 			productName = Rjosk;
 			productReference = 508505C02B587D5F004E0F82 /* RjoskAppApp.app */;
@@ -127,6 +128,7 @@
 			);
 			mainGroup = 508505B72B587D5F004E0F82;
 			packageReferences = (
+				50D790A22B5CB81200540772 /* XCLocalSwiftPackageReference "" */,
 			);
 			productRefGroup = 508505C12B587D5F004E0F82 /* Products */;
 			projectDirPath = "";
@@ -362,10 +364,21 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		50D790A22B5CB81200540772 /* XCLocalSwiftPackageReference "" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "";
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		5073103C2B5B0628006DCD65 /* Rjosk */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Rjosk;
+		};
+		50D790A32B5CB81200540772 /* RjoskChart */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RjoskChart;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

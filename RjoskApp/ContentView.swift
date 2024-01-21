@@ -1,5 +1,5 @@
 import SwiftUI
-import Rjosk
+import RjoskChart
 
 struct ContentView: View {
     
