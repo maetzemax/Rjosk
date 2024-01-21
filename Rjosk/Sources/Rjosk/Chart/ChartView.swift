@@ -18,15 +18,17 @@ public struct ChartView: View {
         height - axisSpacing - axisHeight
     }
     
+    private var chartStyling: ChartStyling
+    
     public init(
         entries: [ChartEntry] = .exampleSinus,
-        width: CGFloat = UIScreen.main.bounds.width,
-        height: CGFloat = 300,
-        paddingHorizontal: CGFloat = 20
+        chartConfig: ChartConfiguration = ChartConfiguration()
     ) {
         self.entries = entries
-        self.width = width - paddingHorizontal
-        self.height = height
+        self.width = chartConfig.width - chartConfig.horizontalPadding
+        self.height = chartConfig.height
+        self.axisSpacing = chartConfig.axisSpacing
+        self.chartStyling = chartConfig.chartStyling
     }
     
     private var yAxis: YAxis {
@@ -40,35 +42,38 @@ public struct ChartView: View {
     @State var axisWidth: CGFloat = 0
     @State var axisHeight: CGFloat = 0
     
-    var axisSpacing: CGFloat = 10
+    var axisSpacing: CGFloat
     
     public var body: some View {
         HStack(alignment: .top, spacing: axisSpacing) {
             ZStack {
                 yAxis.drawLabels()
+                    .foregroundStyle(chartStyling.labelColor)
             }
             .frame(width: axisWidth, height: chartHeight)
             
             VStack(spacing: axisSpacing) {
                 ZStack {
                     xAxis.drawAxis()
-                        .stroke(.primary, lineWidth: 2)
+                        .stroke(chartStyling.axisColor, lineWidth: chartStyling.axisLineWidth)
                     
                     yAxis.drawAxis()
-                        .stroke(.primary, lineWidth: 2)
+                        .stroke(chartStyling.axisColor, lineWidth: chartStyling.axisLineWidth)
                     
                     drawLine()
-                        .stroke(.green, lineWidth: 1.5)
+                        .stroke(chartStyling.lineColor, lineWidth: chartStyling.lineWidth)
                 }
                 .frame(width: chartWidth, height: chartHeight)
                 
                 ZStack {
                     xAxis.drawLabels()
+                        .foregroundStyle(chartStyling.labelColor)
                 }
                 .frame(width: chartWidth, height: axisHeight)
             }
         }
         .frame(width: width, height: height)
+        .background(chartStyling.chartBackground)
     }
     
     func drawLine() -> Path {

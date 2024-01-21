@@ -47,7 +47,7 @@ struct YAxis: ChartAxis {
             .fixedSize(horizontal: true, vertical: false)
             .background {
                 GeometryReader { reader in
-                    Color(.systemBackground)
+                    Color.clear
                         .onAppear {
                             if chart.axisWidth < reader.size.width {
                                 chart.axisWidth = reader.size.width

@@ -8,7 +8,7 @@ public struct ChartEntry: Equatable {
 extension Array<ChartEntry> {
     public static var exampleSinus: [ChartEntry] {
         let amplitude: Double = 10
-        let frequency: Double = 0.10
+        let frequency: Double = 0.025
         
         var entries: [ChartEntry] = []
         for index in 0..<1000 {
