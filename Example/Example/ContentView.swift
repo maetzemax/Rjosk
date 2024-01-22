@@ -41,16 +41,16 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            Form {
-                ChartView(
-                    chartConfig: ChartConfiguration(
-                        chartStyling: chartStyling,
-                        height: height,
-                        width: width - 30
-                    )
+            ChartView(
+                chartConfig: ChartConfiguration(
+                    chartStyling: chartStyling,
+                    height: height,
+                    width: width
                 )
-                .clipped()
-                
+            )
+            .clipped()
+            
+            Form {
                 Section {
                     VStack(alignment: .leading) {
                         Text("Height")
