@@ -77,7 +77,7 @@ struct XAxis: ChartAxis {
         return Rectangle()
             .foregroundStyle(chart.chartStyling.axisTickColor)
             .frame(width: chart.chartStyling.axisTickLineWidth, height: chart.chartHeight)
-            .position(x: posX, y: posY)
+            .position(x: x == maxX ? posX - chart.chartStyling.axisTickLineWidth/2 : posX, y: posY)
     }
     
     func drawLabels() -> some View {

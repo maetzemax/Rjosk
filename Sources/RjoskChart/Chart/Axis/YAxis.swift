@@ -47,7 +47,7 @@ struct YAxis: ChartAxis {
         return Rectangle()
             .foregroundStyle(chart.chartStyling.axisTickColor)
             .frame(width: chart.chartWidth, height: chart.chartStyling.axisTickLineWidth)
-            .position(x: posX, y: chart.chartHeight - posY)
+            .position(x: posX, y: chart.chartHeight - (y == maxY ? posY - chart.chartStyling.axisTickLineWidth/2 : posY))
     }
     
     func drawTicks(y: CGFloat) -> some View {        
@@ -74,7 +74,7 @@ struct YAxis: ChartAxis {
         return Rectangle()
             .foregroundStyle(chart.chartStyling.axisTickColor)
             .frame(width: 10, height: chart.chartStyling.axisTickLineWidth)
-            .position(x: posX, y: chart.chartHeight - posY)
+            .position(x: posX, y: chart.chartHeight - (y == maxY ? posY - chart.chartStyling.axisTickLineWidth/2 : posY))
     }
     
     func drawLabels() -> some View {
