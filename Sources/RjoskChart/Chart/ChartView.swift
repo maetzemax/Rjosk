@@ -18,7 +18,7 @@ public struct ChartView: View {
         height - axisSpacing - axisHeight
     }
     
-    private var chartStyling: ChartStyling
+    var chartStyling: ChartStyling
     
     public init(
         entries: [ChartEntry] = .exampleSinus,

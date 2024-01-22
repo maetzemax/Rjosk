@@ -1,5 +1,5 @@
 import XCTest
-@testable import Rjosk
+@testable import RjoskChart
 
 final class RjoskTests: XCTestCase {
     func testExample() throws {
